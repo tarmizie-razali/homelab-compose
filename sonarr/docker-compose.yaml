@@ -1,0 +1,75 @@
+name: linuxserver-sonarr
+services:
+  app:
+    cpu_shares: 90
+    command: []
+    container_name: sonarr
+    deploy:
+      resources:
+        limits:
+          memory: 9940M
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=Etc/UTC
+    hostname: sonarr
+    image: linuxserver/sonarr:latest
+    labels:
+      icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sonarr-icon.png
+    ports:
+      - target: 8989
+        published: "8989"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/sonarr/config
+        target: /config
+      - type: bind
+        source: /DATA/AppData/sonarr/tv
+        target: /tv
+      - type: bind
+        source: /DATA/AppData/sonarr/downloads
+        target: /downloads
+      - type: bind
+        source: /mnt/192.168.1.13/Video/arr
+        target: /mnt/download
+      - type: bind
+        source: /mnt/192.168.1.13/Video
+        target: /mnt/msi/video
+    devices: []
+    cap_add: []
+    networks:
+      - default
+    privileged: false
+networks:
+  default:
+    name: linuxserver-sonarr_default
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: WisdomSky
+  category: LinuxServer.io
+  description:
+    en_us: "Visit homepage: https://hub.docker.com/r/linuxserver/sonarr/"
+  developer: LinuxServer.io
+  hostname: ""
+  icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sonarr-icon.png
+  index: /
+  is_uncontrolled: true
+  main: app
+  port_map: "8989"
+  project_url: https://sonarr.tv/
+  scheme: http
+  store_app_id: linuxserver-sonarr
+  tagline:
+    en_us: (formerly NZBdrone) is a PVR for usenet and bittorrent users. It can
+      monitor multiple RSS feeds for new episodes of your favorite shows and
+      will grab, sort and rename them. It can also be configured to
+      automatically upgrade the quality of files already downloaded when a
+      better quality format becomes available.
+  thumbnail: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sonarr-banner.png
+  title:
+    custom: ""
+    en_us: Sonarr
