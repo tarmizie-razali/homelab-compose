@@ -1,0 +1,87 @@
+name: linuxserver-jellyfin
+services:
+    app:
+        cpu_shares: 90
+        command: []
+        container_name: jellyfin
+        deploy:
+            resources:
+                limits:
+                    memory: "10422845440"
+        environment:
+            JELLYFIN_PublishedServerUrl: ""
+            PGID: "1000"
+            PUID: "1000"
+            TZ: Asia/Kuala_Lumpur
+        hostname: jellyfin
+        image: linuxserver/jellyfin:10.11.8
+        labels:
+            icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/jellyfin-logo.png
+        networks:
+            default: null
+        ports:
+            - target: 8096
+              published: "8097" #Main Access: Web UI, API, and Video Streaming.
+              protocol: tcp
+            - target: 8920
+              published: "8920" #Secure Access: Encrypted HTTPS traffic.
+              protocol: tcp
+            - target: 7359
+              published: "7359" #Auto-Discovery: Helps apps find your server automatically.
+              protocol: udp
+            - target: 1900
+              published: "1901" #DLNA/UPnP: Discovery for legacy devices and Smart TVs.
+              protocol: udp
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /DATA/AppData/jellyfin_10.11.8/jellyfin/config
+              target: /config
+            # - type: bind
+            #   source: /mnt/192.168.1.141/Movies
+            #   target: /mnt/nas/Movies
+            # - type: bind
+            #   source: /mnt/192.168.1.141/Shows
+            #   target: /mnt/nas/Shows
+            - type: bind
+              source: /mnt/192.168.1.13/Video
+              target: /mnt/nas/Torrent
+            - type: volume
+              source: Movies
+              target: /mnt/nas/Movies
+            - type: volume
+              source: NAS-Shows
+              target: /mnt/nas/Shows
+            
+volumes:
+ Movies:
+  external: true
+ NAS-Shows:
+  external: true
+  
+networks:
+    default:
+        name: linuxserver-jellyfin_default
+x-casaos:
+    architectures:
+        - amd64
+        - arm64
+    author: WisdomSky
+    category: LinuxServer.io
+    description:
+        en_us: 'Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media. It is an alternative to the proprietary Emby and Plex, to provide media from a dedicated server to end-user devices via multiple apps. Jellyfin is descended from Emby''s 3.5.2 release and ported to the .NET Core framework to enable full cross-platform support. There are no strings attached, no premium licenses or features, and no hidden agendas: just a team who want to build something better and work together to achieve it.'
+    developer: LinuxServer.io
+    hostname: ""
+    icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/jellyfin-logo.png
+    index: /
+    is_uncontrolled: true
+    main: app
+    port_map: "8097"
+    scheme: http
+    store_app_id: linuxserver-jellyfin
+    tagline:
+        en_us: 'A Free Software Media System that puts you in control of managing and streaming your media. It is an alternative to the proprietary Emby and Plex, to provide media from a dedicated server to end-user devices via multiple apps. Jellyfin is descended from Emby''s 3. 5. 2 release and ported to the. NET Core framework to enable full cross-platform support. There are no strings attached, no premium licenses or features, and no hidden agendas: just a team who want to build something better and work together to achieve it.'
+    thumbnail: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/jellyfin-logo.png
+    title:
+        custom: ""
+        en_us: Jellyfin
