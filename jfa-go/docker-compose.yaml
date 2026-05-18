@@ -1,0 +1,47 @@
+name: intuitive_romain
+services:
+  jfa-go:
+    cpu_shares: 90
+    command: []
+    container_name: jfa-go
+    deploy:
+      resources:
+        limits:
+          memory: 9940M
+    hostname: jfa-go
+    image: hrfee/jfa-go:latest
+    labels:
+      icon: https://raw.githubusercontent.com/hrfee/jfa-go/main/images/jfa-go-icon.png
+    ports:
+      - target: 8056
+        published: "8056"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/jfago/config
+        target: /data
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime
+    devices: []
+    cap_add: []
+    environment: []
+    networks:
+      - emby
+    privileged: false
+networks:
+  emby:
+    name: emby
+x-casaos:
+  author: self
+  category: self
+  hostname: jfa.trtv.my.id
+  icon: https://raw.githubusercontent.com/hrfee/jfa-go/main/images/jfa-go-icon.png
+  index: /
+  is_uncontrolled: false
+  port_map: ""
+  scheme: http
+  store_app_id: intuitive_romain
+  title:
+    custom: jfa-go

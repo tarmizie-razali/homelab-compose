@@ -1,0 +1,13 @@
+name: hawser
+services:
+    hawser:
+        image: ghcr.io/finsys/hawser:latest
+        container_name: hawser
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /DATA/AppData/Hawser/data:/data/stacks
+        ports:
+            - 2376:2376
+        restart: unless-stopped
+        environment:
+            - TOKEN=${HAWSER_TOKEN}

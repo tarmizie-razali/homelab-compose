@@ -1,0 +1,126 @@
+name: wildfly
+services:
+  wildfly:
+    cap_add:
+      - AUDIT_WRITE
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - FSETID
+      - KILL
+      - MKNOD
+      - NET_BIND_SERVICE
+      - NET_RAW
+      - SETFCAP
+      - SETGID
+      - SETPCAP
+      - SETUID
+      - SYS_CHROOT
+    cpu_shares: 90
+    command:
+      - /opt/jboss/wildfly/bin/standalone.sh
+      - -b
+      - 0.0.0.0
+    container_name: wildfly
+    deploy:
+      resources:
+        limits:
+          memory: 17943M
+    environment:
+      - JAVA_HOME=/opt/java/openjdk
+      - JAVA_VERSION=jdk-17.0.10+7
+      - JBOSS_HOME=/opt/jboss/wildfly
+      - LANG=en_US.UTF-8
+      - LANGUAGE=en_US:en
+      - LAUNCH_JBOSS_IN_BACKGROUND=true
+      - LC_ALL=en_US.UTF-8
+      - PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - WILDFLY_SHA1=f3dc65a92698173a36fa96b082eed5521f5f8494
+      - WILDFLY_VERSION=31.0.1.Final
+      - container=oci
+    image: quay.io/wildfly/wildfly:latest
+    labels:
+      icon: https://www.wildfly.org/assets/img/wildfly_icons_one-color-logo.png
+    ports:
+      - target: 8080
+        published: "8080"
+        protocol: tcp
+      - target: 9990
+        published: "9990"
+        protocol: tcp
+    privileged: true
+    restart: unless-stopped
+    x-casaos:
+      envs:
+        - container: PATH
+          description:
+            en_us: ""
+        - container: JAVA_HOME
+          description:
+            en_us: ""
+        - container: LANG
+          description:
+            en_us: ""
+        - container: LANGUAGE
+          description:
+            en_us: ""
+        - container: LC_ALL
+          description:
+            en_us: ""
+        - container: JAVA_VERSION
+          description:
+            en_us: ""
+        - container: WILDFLY_VERSION
+          description:
+            en_us: ""
+        - container: WILDFLY_SHA1
+          description:
+            en_us: ""
+        - container: JBOSS_HOME
+          description:
+            en_us: ""
+        - container: LAUNCH_JBOSS_IN_BACKGROUND
+          description:
+            en_us: ""
+        - container: container
+          description:
+            en_us: ""
+      image: ""
+      ports:
+        - container: "8080"
+          description:
+            en_us: ""
+        - container: "9990"
+          description:
+            en_us: ""
+    volumes: []
+    devices: []
+    network_mode: bridge
+    hostname: wildfly
+x-casaos:
+  architectures:
+    - arm64
+  author: CasaOS User
+  category: unknown
+  description:
+    en_us: ""
+  developer: unknown
+  hostname: ""
+  icon: https://www.wildfly.org/assets/img/wildfly_icons_one-color-logo.png
+  image: null
+  index: /
+  is_uncontrolled: false
+  main: wildfly
+  port_map: "9990"
+  scheme: http
+  store_app_id: wildfly
+  tagline:
+    en_us: This is a compose app converted from a legacy app (CasaOS v0.4.3 or
+      earlier)
+  thumbnail: ""
+  tips:
+    custom: This is a compose app converted from a legacy app (CasaOS v0.4.3 or
+      earlier)
+  title:
+    custom: ""
+    en_us: Wildfly

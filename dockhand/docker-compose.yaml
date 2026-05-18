@@ -1,0 +1,79 @@
+name: big-bear-dockhand
+services:
+  app:
+    cpu_shares: 90
+    container_name: dockhand
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+    hostname: dockhand
+    image: fnsys/dockhand:latest
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/dockhand.png
+    ports:
+      - mode: ingress
+        target: 3000
+        published: "3003"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /DATA/AppData/big-bear-dockhand/data
+        target: /app/data
+        bind:
+          create_host_path: true
+    devices: []
+    cap_add: []
+    command: []
+    environment: []
+    networks:
+      - default
+    privileged: false
+networks:
+  default:
+    name: big-bear-dockhand_default
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: BigBearTechWorld
+  category: BigBearCasaOS
+  description:
+    en_us: Modern, efficient Docker management application providing real-time
+      container management, Compose stack orchestration, and multi-environment
+      support. Features include interactive terminal access, file browser, Git
+      integration, and SSO via OIDC. All in a lightweight, secure and
+      privacy-focused package.
+  developer: Finsys
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/dockhand.png
+  index: /
+  is_uncontrolled: false
+  main: app
+  port_map: "3003"
+  scheme: http
+  store_app_id: big-bear-dockhand
+  tagline:
+    en_us: Modern Docker management you will like
+  thumbnail: ""
+  tips:
+    before_install:
+      en_us: >-
+        **Support BigBearTechWorld**: https://ko-fi.com/bigbeartechworld
+
+        **Community Forum**: https://community.bigbeartechworld.com
+
+
+        Dockhand provides modern Docker management with real-time container orchestration, Compose stack management, and multi-environment support. Authentication is disabled by default for easy setup - consider enabling it in Settings > Authentication after installation.
+
+
+        **Security Note**: This app requires Docker socket access, which grants full Docker daemon privileges.
+  title:
+    custom: ""
+    en_us: Dockhand
