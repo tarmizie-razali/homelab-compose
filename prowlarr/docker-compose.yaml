@@ -1,0 +1,83 @@
+name: linuxserver-prowlarr
+services:
+  app:
+    cpu_shares: 90
+    command: []
+    container_name: prowlarr
+    deploy:
+      resources:
+        limits:
+          memory: 9940M
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=Etc/UTC
+    hostname: prowlarr
+    image: linuxserver/prowlarr:latest
+    labels:
+      icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/prowlarr-logo.png
+    ports:
+      - target: 9696
+        published: "9696"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/prowlarr/config
+        target: /config
+    x-casaos:
+      envs:
+        - container: PUID
+          description:
+            en_us: for UserID
+        - container: PGID
+          description:
+            en_us: for GroupID
+        - container: TZ
+          description:
+            en_us: specify a timezone to use, see this list.
+      ports:
+        - container: "9696"
+          description:
+            en_us: The port for the Prowlarr webinterface
+      volumes:
+        - container: /config
+          description:
+            en_us: Database and Prowlarr configs
+    devices: []
+    cap_add: []
+    networks:
+      - default
+    privileged: false
+networks:
+  default:
+    name: linuxserver-prowlarr_default
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: WisdomSky
+  category: LinuxServer.io
+  description:
+    en_us: "Visit homepage:
+      https://github.com/orgs/linuxserver/packages/container/package/prowlarr"
+  developer: LinuxServer.io
+  hostname: ""
+  icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/prowlarr-logo.png
+  index: /
+  is_uncontrolled: false
+  main: app
+  port_map: "9696"
+  project_url: https://github.com/Prowlarr/Prowlarr
+  scheme: http
+  store_app_id: linuxserver-prowlarr
+  tagline:
+    en_us: A indexer manager/proxy built on the popular arr. Net/reactjs base stack
+      to integrate with your various PVR apps. Prowlarr supports both Torrent
+      Trackers and Usenet Indexers. It integrates seamlessly with Sonarr,
+      Radarr, Lidarr, and Readarr offering complete management of your indexers
+      with no per app Indexer setup required (we do it all).
+  thumbnail: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/prowlarr-banner.png
+  title:
+    custom: ""
+    en_us: Prowlarr

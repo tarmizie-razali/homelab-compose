@@ -1,0 +1,53 @@
+name: flaresolverr
+services:
+  flaresolverr:
+    cpu_shares: 50
+    command: []
+    container_name: flaresolverr
+    deploy:
+      resources:
+        limits:
+          memory: 9940M
+        reservations:
+          memory: "67108864"
+    environment:
+      - CAPTCHA_SOLVER=none
+      - LOG_HTML=false
+      - LOG_LEVEL=info
+      - PGID=1000
+      - PUID=1000
+      - TZ=Asia/Singapore
+      - UMASK=002
+    hostname: flaresolverr
+    image: flaresolverr/flaresolverr:latest
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/FlareSolverr/icon.png
+    ports:
+      - target: 8191
+        published: "8191"
+        protocol: tcp
+    restart: unless-stopped
+    volumes: []
+    devices: []
+    cap_add: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  architectures:
+    - amd64
+    - arm
+    - arm64
+  author: calganaygun
+  category: Network
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/FlareSolverr/icon.png
+  index: /
+  is_uncontrolled: true
+  port_map: "8191"
+  scheme: http
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/FlareSolverr/screenshot-1.png
+  store_app_id: flaresolverr
+  title:
+    custom: ""
+    en_us: FlareSolverr

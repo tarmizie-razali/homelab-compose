@@ -1,0 +1,158 @@
+name: qbittorrent-nox
+services:
+    qbittorrent-nox:
+        cpu_shares: 50
+        command: []
+        container_name: qbittorrent-nox
+        deploy:
+            resources:
+                limits:
+                    cpus: "2.00"
+                    memory: "1073741824"
+                reservations:
+                    cpus: "1.00"
+                    memory: "536870912"
+        environment:
+            PGID: "0"
+            PUID: "0"
+            QBT_LEGAL_NOTICE: "yes"
+            QBT_WEBUI_PORT: "8181"
+            TZ: Etc/UTC
+            UMASK: "002"
+        hostname: qbittorrent-nox
+        image: sha256:d90075a53177ae3c4bb6117b7357ebf6e9b4bd20f8f84a3e4a410efa3a82fa1e
+        labels:
+            icon: https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/qbittorrent-nox/icon.png
+        networks:
+            default: null
+        privileged: true
+        ports:
+            - target: 8181
+              published: "8181" 
+              protocol: tcp
+            - target: 6881
+              published: "6881" 
+              protocol: tcp
+            - target: 6881
+              published: "6881" 
+              protocol: udp
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /DATA/AppData/qbittorrent-nox/config
+              target: /config
+              bind:
+                create_host_path: true
+            - type: bind
+              source: /DATA/Downloads
+              target: /downloads
+              bind:
+                create_host_path: true
+            - type: bind
+              source: /mnt/192.168.1.13/Video/arr
+              target: /mnt/download
+            - type: bind
+              source: /mnt/192.168.1.13/Video
+              target: /mnt/msi/video
+            - type: bind
+              source: /mnt/192.168.1.141
+              target: /mnt/nas
+            # - type: volume
+            #   source: Movies
+            #   target: /mnt/nas/Movies
+            # - type: volume
+            #   source: NAS-Shows
+            #   target: /mnt/nas/Shows
+networks:
+    default:
+        name: qbittorrent-nox_default
+        
+volumes:
+  Movies:
+    external: true
+  NAS-Shows:
+    external: true
+    
+x-casaos:
+    architectures:
+        - arm
+        - arm64
+        - amd64
+    author: Cp0204
+    category: Downloader
+    description:
+        ar_sa: يهدف مشروع qBittorrent إلى توفير بديل مفتوح المصدر لـ µTorrent.
+        de_de: Das qBittorrent-Projekt zielt darauf ab, eine Open-Source-Software-Alternative zu µTorrent zu bieten.
+        en_us: The qBittorrent project aims to provide an open-source software alternative to µTorrent.
+        es_es: El objetivo del proyecto qBittorrent es proporcionar una alternativa de software de código abierto a µTorrent.
+        fr_fr: Le projet qBittorrent vise à fournir une alternative open source à µTorrent.
+        hu_hu: A qBittorrent projekt célja, hogy nyílt forráskódú szoftver alternatívát nyújtson a µTorrent számára.
+        it_it: Il progetto qBittorrent mira a fornire un'alternativa open source a µTorrent.
+        pl_pl: Projekt qBittorrent ma na celu zapewnienie otwartoźródłowej alternatywy dla µTorrent.
+        pt_br: O objetivo do projeto qBittorrent é fornecer uma alternativa de software de código aberto ao µTorrent.
+        ru_ru: Проект qBittorrent стремится предоставить альтернативу c открытым исходным кодом для µTorrent.
+        sv_se: qBittorrent-projektets mål är att erbjuda en öppen källkodsalternativ till µTorrent.
+        uk_ua: Проект qBittorrent має на меті надати альтернативу з відкритим вихідним кодом для µTorrent.
+        zh_cn: qBittorrent 项目旨在提供一个开源的 µTorrent 替代品。
+    developer: qBittorrent
+    hostname: ""
+    icon: https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/qbittorrent-nox/icon.png
+    index: /
+    is_uncontrolled: false
+    main: qbittorrent-nox
+    port_map: "8181"
+    scheme: http
+    screenshot_link:
+        - https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/qbittorrent-nox/screenshot-1.png
+        - https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/qbittorrent-nox/screenshot-2.png
+    store_app_id: qbittorrent-nox
+    tagline:
+        ar_sa: مُنزِّل BitTorrent مجاني
+        de_de: Kostenloser BitTorrent-Downloader
+        en_us: Free BitTorrent downloader
+        es_es: Descargador de BitTorrent gratuito
+        fr_fr: Téléchargeur BitTorrent gratuit
+        hu_hu: Ingyenes BitTorrent letöltő
+        it_it: Downloader BitTorrent gratuito
+        pl_pl: Darmowy downloader BitTorrent
+        pt_br: Downloader BitTorrent gratuito
+        ru_ru: Бесплатный загрузчик BitTorrent
+        sv_se: Gratis BitTorrent-downladdare
+        uk_ua: Безкоштовний завантажувач BitTorrent
+        zh_cn: 免费的 BitTorrent 下载器
+    thumbnail: https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/qbittorrent-nox/thumbnail.jpg
+    tips:
+        before_install:
+            en_us: |
+                Default Account
+
+                | Username | Password |
+                |----------|----------|
+                | `admin`  | Print to console |
+
+                Default Accessible Path
+
+                | Host | Container |
+                | ---- | ----- |
+                | `/DATA/Downloads` | `/downloads` |
+                | `/mnt` | `/mnt` |
+
+                You can add mapped paths yourself, make sure you use the correct paths when using qBittorrent.
+            zh_cn: |
+                默认账号
+
+                | 用户名 | 密码 |
+                |----------|----------|
+                | `admin`  | 打印到控制台 |
+
+                默认可访问路径
+
+                | 主机 | 容器 |
+                | ---- | ----- |
+                | `/DATA/Downloads` | `/downloads` |
+                | `/mnt` | `/mnt` |
+
+                你可以自行增加映射路径，请确保在使用 qBittorrent 时使用正确的路径。
+    title:
+        custom: ""
+        en_us: qBittorrent

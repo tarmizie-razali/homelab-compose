@@ -1,0 +1,68 @@
+name: tr-seerr
+services:
+  app:
+    cpu_shares: 90
+    container_name: seerr
+    deploy:
+      resources:
+        limits:
+          memory: 9940M
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Asia/Kuala_Lumpur
+    hostname: seerr
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 --spider
+          http://localhost:5055/api/v1/settings/public || exit 1
+      timeout: 10s
+      interval: 30s
+      retries: 3
+      start_period: 20s
+    image: seerr/seerr:v3.2.0
+    init: true
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/seerr.png
+    ports:
+      - mode: ingress
+        target: 5055
+        published: "5056"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/seerr/config
+        target: /app/config
+        bind:
+          create_host_path: true
+    devices: []
+    cap_add: []
+    command: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: BigBearCommunity
+  category: BigBearCasaOS
+  description:
+    en_us: Seerr is a free and open source software application for managing
+      requests for your media library. It is the successor to Overseerr and
+      Jellyseerr, bringing support for Jellyfin, Plex, and Emby media servers.
+  developer: Seerr Team
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/seerr.png
+  index: /
+  is_uncontrolled: false
+  main: app
+  port_map: "5056"
+  scheme: http
+  store_app_id: big-bear-seerr
+  tagline:
+    en_us: Media request management for Jellyfin, Plex, and Emby
+  thumbnail: ""
+  title:
+    custom: ""
+    en_us: Seerr

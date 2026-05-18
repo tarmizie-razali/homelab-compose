@@ -1,0 +1,31 @@
+services:
+  filebrowser:
+    image: gtstef/filebrowser:1.2.4-stable
+    container_name: filebrowser
+    environment:
+      FILEBROWSER_ADMIN_PASSWORD: "${FILEBROWSER_ADMIN_PASSWORD}"
+      TZ: "Asia/Kuala_Lumpur"
+    volumes:
+      - /:/mnt/root
+      # - /mnt/192.168.1.141:/mnt/nas
+      # - /mnt/192.168.1.140/Shows:/mnt/nas/Shows
+      - Movies:/mnt/nas/Movies
+      - NAS-Shows:/mnt/nas/Shows
+      - NAS-Software:/mnt/nas/Software
+      - /mnt:/mnt/mnt
+      - /DATA/AppData/filebrowser_1.2.1/data:/home/filebrowser/data
+      - /DATA/AppData/filebrowser_1.2.1/config.yaml:/home/filebrowser/data/config.yaml
+      - /DATA/AppData/filebrowser_1.2.1/database.db:/home/filebrowser/database.db
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 10180:80
+    restart: unless-stopped
+    
+volumes:
+  Movies:
+    external: true
+  NAS-Shows:
+   external: true
+  NAS-Software:
+   external: true
+   
