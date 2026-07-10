@@ -14,7 +14,7 @@ services:
             PUID: "1000"
             TZ: Asia/Kuala_Lumpur
         hostname: jellyfin
-        image: linuxserver/jellyfin:10.11.8
+        image: linuxserver/jellyfin:10.11.11
         labels:
             icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/jellyfin-logo.png
         networks:
@@ -35,7 +35,7 @@ services:
         restart: unless-stopped
         volumes:
             - type: bind
-              source: /DATA/AppData/jellyfin_10.11.8/jellyfin/config
+              source: /DATA/AppData/jellyfin_10.11.11/jellyfin/config
               target: /config
             # - type: bind
             #   source: /mnt/192.168.1.141/Movies
