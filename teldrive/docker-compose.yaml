@@ -1,0 +1,39 @@
+##https://my.telegram.org/apps
+
+services:
+  db:
+    image: groonga/pgroonga:latest
+    container_name: teldrive_db
+    hostname: teldrive-db
+    restart: always
+    environment:
+      - POSTGRES_USER=teldrive_user
+      - POSTGRES_PASSWORD=secure_password_here
+      - POSTGRES_DB=teldrive
+    volumes:
+      - teldrive_db:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "teldrive_user", "-d", "teldrive"]
+      interval: 10s
+      start_period: 30s
+
+  teldrive:
+    image: ghcr.io/tgdrive/teldrive:latest
+    container_name: teldrive
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "1111:8080"
+    volumes:
+      - ./storage.db:/storage.db
+    environment:
+      - TELDRIVE_TG_APP_ID=${TELDRIVE_TG_APP_ID}
+      - TELDRIVE_TG_APP_HASH=${TELDRIVE_TG_APP_HASH}
+      - TELDRIVE_DB_DATA_SOURCE=${TELDRIVE_DB_DATA_SOURCE}
+      - TELDRIVE_JWT_SECRET=${TELDRIVE_JWT_SECRET}
+      - TELDRIVE_JWT_ALLOWED_USERS=${TELDRIVE_JWT_ALLOWED_USERS}
+
+volumes:
+  teldrive_db:
