@@ -1,0 +1,32 @@
+
+name: shlink
+services:
+  shlink:
+    cpu_shares: 10
+    command: []
+    container_name: shlink
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+    env_file:
+      - .env
+    hostname: shlink
+    image: shlinkio/shlink:latest
+    labels:
+      icon: https://icon.casaos.io/main/all/shlink.png
+    ports:
+      - target: 8080
+        published: "8100"
+        protocol: tcp
+    privileged: true
+    restart: always
+    volumes: []
+    devices: []
+    cap_add: []
+    networks:
+      - vaultwarden
+networks:
+  vaultwarden:
+    name: vaultwarden
+    custom: Shlink Backend
