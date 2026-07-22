@@ -1,0 +1,13 @@
+services:
+  prismarr:
+    image: shoshuo/prismarr:latest
+    container_name: prismarr
+    restart: unless-stopped
+    #stop_grace_period: 30s
+    ports:
+      - "7070:7070"
+    volumes:
+      - /DATA/AppData/prismarr:/var/www/html/var/data
+
+volumes:
+  prismarr_data:
