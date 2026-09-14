@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  honeygain:
+    image: honeygain/honeygain
+    container_name: honeygain
+    restart: unless-stopped
+    env_file:
+      - .env
+    command:
+      - -tou-accept
+      - -email
+      - ${HONEYGAIN_EMAIL}
+      - -pass
+      - ${HONEYGAIN_PASSWORD}
+      - -device
+      - ${HONEYGAIN_DEVICE}
