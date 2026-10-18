@@ -3,5 +3,3 @@ Title: AdGuard DNS filter
 ! Version: 1.0
 !
 !
-!||ayamas.com^
-!||thebakerscottage.com^
