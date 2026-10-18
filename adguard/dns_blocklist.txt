@@ -1,0 +1,6 @@
+Title: AdGuard DNS filter
+! Description: List composed of several filters (AdGuard Base filter, Social Media filter, Tracking Protection filter, Mobile Ads filter, EasyList and EasyPrivacy) and simplified specifically to be better compatible with DNS-level ad blocking
+! Version: 1.0
+!
+!
+||ayamas.com
